@@ -20,29 +20,28 @@ class Result {
      */
 
     public static int migratoryBirds(List<Integer> arr) {
-    int counts[] = new int[6]; // Bird types 1 to 5
+        int counts[] = new int[6]; // Bird types 1 to 5
 
-    // Count frequency of each bird type
-    for (int no : arr) {
-        counts[no]++;
-    }
-
-    int maxCount = 0;
-    int birdType = 0;
-
-    // Traverse from 1 to 5
-    for (int i = 1; i <= 5; i++) {
-        if (counts[i] > maxCount) {
-            maxCount = counts[i];
-            birdType = i;
-        } else if (counts[i] == maxCount && i < birdType) {
-            birdType = i; // In case of tie, pick smaller type ID
+        // Count frequency of each bird type
+        for (int no : arr) {
+            counts[no]++;
         }
+
+        int maxCount = 0;
+        int birdType = 0;
+
+        // Traverse from 1 to 5
+        for (int i = 1; i <= 5; i++) {
+            if (counts[i] > maxCount) {
+                maxCount = counts[i];
+                birdType = i;
+            } else if (counts[i] == maxCount && i < birdType) {
+                birdType = i; // In case of tie, pick smaller type ID
+            }
+        }
+
+        return birdType;
     }
-
-    return birdType;
-}
-
 
 }
 
@@ -54,8 +53,8 @@ public class MigratoryBirds {
         int arrCount = Integer.parseInt(bufferedReader.readLine().trim());
 
         List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-            .map(Integer::parseInt)
-            .collect(toList());
+                .map(Integer::parseInt)
+                .collect(toList());
 
         int result = Result.migratoryBirds(arr);
 
