@@ -1,4 +1,3 @@
-package Math;
 import java.io.*;
 import java.math.*;
 
