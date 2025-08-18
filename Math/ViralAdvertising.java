@@ -7,54 +7,49 @@ import java.util.concurrent.*;
 import java.util.function.*;
 import java.util.regex.*;
 import java.util.stream.*;
-
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 class Result {
 
     /*
-     * Complete the 'diagonalDifference' function below.
+     * Complete the 'viralAdvertising' function below.
      *
      * The function is expected to return an INTEGER.
-     * The function accepts 2D_INTEGER_ARRAY arr as parameter.
+     * The function accepts INTEGER n as parameter.
      */
 
-    public static int diagonalDifference(List<List<Integer>> arr) {
-        int d1=0,d2=0,n=arr.size();
-        for(int i =0; i<n; i++){
-            d1+=arr.get(i).get(i);
-            d2+=arr.get(i).get(n-1-i);
+    public static int viralAdvertising(int n) {
+        // Initialize the state for Day 1.
+        int shared = 5;
+        int cumulativeLikes = 0;
+
+        // Loop from day 1 to the target day n.
+        for (int day = 1; day <= n; day++) {
+            // Calculate how many people liked the ad on the current day.
+            // Integer division automatically handles the floor operation.
+            int liked = shared / 2;
+
+            // Add the new likes to the cumulative total.
+            cumulativeLikes += liked;
+
+            // Calculate how many people will be advertised to on the next day.
+            shared = liked * 3;
         }
-        
-        return Math.abs(d1-d2);
-    
+
+        return cumulativeLikes;
     }
 
 }
 
-public class DiagonalDiff{
+public class ViralAdvertising{
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
         int n = Integer.parseInt(bufferedReader.readLine().trim());
 
-        List<List<Integer>> arr = new ArrayList<>();
-
-        IntStream.range(0, n).forEach(i -> {
-            try {
-                arr.add(
-                    Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                        .map(Integer::parseInt)
-                        .collect(toList())
-                );
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-
-        int result = Result.diagonalDifference(arr);
+        int result = Result.viralAdvertising(n);
 
         bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
