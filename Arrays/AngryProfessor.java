@@ -46,8 +46,6 @@ public class AngryProfessor{
             try {
                 String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
-                int n = Integer.parseInt(firstMultipleInput[0]);
-
                 int k = Integer.parseInt(firstMultipleInput[1]);
 
                 List<Integer> a = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
